@@ -184,3 +184,31 @@ def update_dashboard(n_clicks, n_intervals, ticker, trade_size):
 
     fig = go.Figure(data=[go.Candlestick(x=df.index, open=df['Open'], high=df['High'], low=df['Low'], close=df['Close'], increasing_line_color='green', decreasing_line_color='red')])
     fig.update_layout(x
+        # Candlestick Chart তৈরি করা (লাইন 185-এর সম্পূর্ণ রূপ)
+    fig = go.Figure(data=[
+        go.Candlestick(
+            x=df.index,
+            open=df['Open'],
+            high=df['High'],
+            low=df['Low'],
+            close=df['Close'],
+            increasing_line_color='green',
+            decreasing_line_color='red'
+        )
+    ])
+    
+    # fig.update_layout() কলটি সম্পূর্ণ করা 
+    fig.update_layout(
+        xaxis_rangeslider_visible=False,
+        title=f'{ticker} Price Chart and AI Prediction',
+        xaxis_title='Date',
+        yaxis_title='Price (USD)'
+    )
+    
+    # 6টি আউটপুট রিটার্ন করা 
+    return fig, \
+           html.H3(f"Predicted Change: {predicted_change:.2f}% ({signal})"), \
+           html.H3(f"Sentiment: {sentiment_label} ({sentiment_val:.2f})"), \
+           html.H3(f"VaR Risk Level: {risk_level}"), \
+           html.H3(f"Expected Gain: {expected_gain:.2f}"), \
+           html.H3(f"Confidence: {confidence*100:.0f}%")
